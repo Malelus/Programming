@@ -1,0 +1,80 @@
+<!-- Polecenie: 
+Napisz formularz składający się z pola tekstowego o etykiecie liczba ogłoszeń, pola checkbox o etykiecie stały klient
+oraz przycisku. Po naciśnięciu przycisku obliczyć się ma koszt ogłoszenia, który zostanie wypisany nad formularzem.
+Koszt ogłoszenia oblicz w następujący sposób:
+– 1-50 ogłoszeń, cena 2zł za ogłoszenie
+– 51-100 ogłoszeń, cena 1,5zł za ogłoszenie
+– każde ogłoszenie powyżej 100 kosztuje 1zł.
+Dla stałych klientów naliczany jest rabat 20%. -->
+
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../main.css" />
+    <title>Zad5</title>
+  </head>
+  <body>
+    <a class="home" href="./index.html">Powrót</a>
+
+    <div id="result"><br /><br /><br /></div>
+
+    <form class="form" id="form">
+      <label for="box">Liczba ogłoszeń: </label>
+      <input type="number" id="box" required />
+      <br /><br />
+      <label for="checkbox">Stały klient </label>
+      <input type="checkbox" id="checkbox" />
+      <br /><br />
+
+      <input type="button" value="Oblicz" id="count" />
+      <input type="reset" value="Wyczyść" id="reset" />
+    </form>
+
+    <script>
+      const checkBox = document.querySelector('#checkbox');
+      const funcBtn = document.querySelector('#count');
+      const resetBtn = document.querySelector('#reset');
+      const result = document.querySelector('#result');
+
+      funcBtn.addEventListener('click', () => {
+        const advertsTotal = parseFloat(document.querySelector('#box').value);
+
+        if (errorChecker(advertsTotal)) {
+          advertsTotal <= 50 ? (advertPrize = 2) : advertsTotal > 100 ? (advertPrize = 1) : (advertPrize = 1.5);
+
+          let total = advertPrize * advertsTotal;
+
+          if (checkBox.checked) {
+            total *= 0.8;
+          }
+
+          result.innerHTML = `<br />Koszt ogłoszeń wynosi: ${total.toFixed(2)}zł <br /><br />`;
+        }
+      });
+
+      function errorChecker(a) {
+        let state = true;
+
+        if (Number.isNaN(a)) {
+          result.innerHTML = `<br />Proszę wprowadzić liczbę!<br /><br />`;
+          state = false;
+        } else if (!Number.isInteger(a)) {
+          result.innerHTML = `<br />Proszę podać całkowitą liczbę ogłoszeń!<br /><br />`;
+          state = false;
+        } else if (a <= 0) {
+          result.innerHTML = `<br />Proszę podać liczbę ogłoszeń większą od 0!<br /><br />`;
+          state = false;
+        }
+
+        return state;
+      }
+
+      resetBtn.addEventListener('click', () => {
+        result.innerHTML = '';
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+<!-- Polecenie:
+Napisz formularz, składający się z dwóch pól:
+– pole tekstowe o etykiecie ilość kilometrów
+– pole checkbox o etykiecie
+Jestem z Gdańska Oblicz koszt dowozu pizzy. W przypadku zaznaczenia pola checkbox informującego, że jesteś z Gdańska,
+wypisz bezpośrednio pod formularzem: “Dowieziemy Twoją pizzę za darmo”. W przypadku braku zaznaczenia pola checkbox
+oblicz koszt dowozu w taki sposób, że cena przejechania 1km to 1zł. Pamiętaj, że jedziesz w dwie strony. Jeśli mieszkasz
+5km od pizzerii, zapłacisz 10zł. Wypisz pod formularzem komunikat o treści: “Dowóz będzie Cię kosztował … zł”, gdzie w
+miejscu … wprowadzisz obliczoną przez Ciebie cenę dowozu. -->
+
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../main.css" />
+    <title>Zad2</title>
+  </head>
+  <body>
+    <a class="home" href="./index.html">Powrót</a>
+
+    <form class="form" id="form">
+      <label for="box">Ilość kilometrów: </label>
+      <input type="number" id="box" required />
+      <br /><br />
+      <label for="checkbox">Jestem z Gdańska </label>
+      <input type="checkbox" id="checkbox" />
+      <br /><br />
+
+      <input type="button" value="Oblicz" id="count" />
+      <input type="reset" value="Wyczyść" id="reset" />
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+      const checkBox = document.querySelector('#checkbox');
+      const funcBtn = document.querySelector('#count');
+      const resetBtn = document.querySelector('#reset');
+      const result = document.querySelector('#result');
+
+      funcBtn.addEventListener('click', () => {
+        const distance = parseFloat(document.querySelector('#box').value);
+
+        if (errorChecker(distance)) {
+          let total = (distance * 2).toFixed(2);
+
+          const checked = `<br />Dowieziemy Twoją pizzę za darmo!`;
+          const correct = `<br />Dowóz będzie Cię kosztował: ${total}zł`;
+
+          checkBox.checked ? (result.innerHTML = checked) : (result.innerHTML = correct);
+        }
+      });
+
+      function errorChecker(a) {
+        let state = true;
+
+        if (Number.isNaN(a)) {
+          result.innerHTML = `<br />Proszę wprowadzić liczbę!`;
+          state = false;
+        } else if (a < 0) {
+          result.innerHTML = `<br />Odległość nie może być na minusie!`;
+          state = false;
+        }
+
+        return state;
+      }
+
+      resetBtn.addEventListener('click', () => {
+        result.innerHTML = '';
+      });
+    </script>
+  </body>
+</html>

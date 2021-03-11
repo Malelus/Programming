@@ -1,0 +1,92 @@
+<!-- Polecenie:
+Napisz formularz składający się z 2 pól tekstowych oraz 6 przycisków. Pola tekstowe to odpowiednio miejsce na wpisanie
+przez użytkownika wartości zmiennych a oraz b. 6 przycisków oznacza działania: dodawanie, odejmowanie, mnożenie,
+dzielenie, reszta z dzielenia, dzielenie całkowite. Po wprowadzeniu obu liczb i naciśnięciu jednego z przycisków wypisz
+pod formularzem rezultat działania. W przypadku niewypełnienia któregoś z pól tekstowym wypisz komunikat, który
+poinformuje użytkownika o takiej konieczności. -->
+
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../main.css" />
+    <title>Zad3</title>
+  </head>
+  <body>
+    <a class="home" href="./index.html">Powrót</a>
+
+    <form class="form" id="form">
+      <label for="box1">Podaj 1 liczbę: </label>
+      <input type="number" id="box1" required />
+      <br /><br />
+      <label for="box2">Podaj 2 liczbę: </label>
+      <input type="number" id="box2" required />
+      <br /><br />
+
+      <input type="button" value="Dodwanie" id="btn1" />
+      <input type="button" value="Odejmowanie" id="btn2" />
+      <input type="button" value="Mnożenie" id="btn3" />
+      <input type="button" value="Dzielenie" id="btn4" />
+      <input type="button" value="Reszta z dzielenia" id="btn5" />
+      <input type="button" value="Dzielenie całkowite" id="btn6" />
+      <br /><br />
+      <input type="reset" value="Wyczyść" id="reset" />
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+      const resetBtn = document.querySelector('#reset');
+      const result = document.querySelector('#result');
+
+      let operationsName = [
+        'dodawnia',
+        'odejmowania',
+        'mnożenia',
+        'dzielenia',
+        'reszty z dzielenia',
+        'dzielenia całkowitego',
+      ];
+
+      for (let i = 0; i <= 5; i++) {
+        let currentButton = `btn${i + 1}`;
+        let currentQueryButton = `#${currentButton}`;
+
+        currentButton = document.querySelector(currentQueryButton);
+
+        currentButton.addEventListener('click', () => {
+          let a = parseFloat(document.querySelector('#box1').value);
+          let b = parseFloat(document.querySelector('#box2').value);
+
+          if (errorChecker(a, b)) {
+            let operations = [a + b, a - b, a * b, a / b, a % b, Math.round(a / b)];
+
+            let total = operations[i];
+
+            result.innerHTML = `<br />Wynik ${operationsName[i]} wynosi: ${total}`;
+          }
+        });
+      }
+
+      function errorChecker(a, b) {
+        let state = true;
+
+        if (Number.isNaN(a) || Number.isNaN(b)) {
+          result.innerHTML = `<br />Proszę wprowadzić liczby!`;
+          state = false;
+        } else if (b == 0) {
+          result.innerHTML = `<br />Druga liczba musi być różna od 0!`;
+          state = false;
+        }
+
+        return state;
+      }
+
+      resetBtn.addEventListener('click', () => {
+        result.innerHTML = '';
+      });
+    </script>
+  </body>
+</html>

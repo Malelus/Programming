@@ -1,0 +1,78 @@
+<!-- Polecenie:
+Napisz formularz, składający się z dwóch pól:
+– pole tekstowe o etykiecie ilość gości
+– pole checkbox o etykiecie poprawiny
+Po każdorazowej zmianie wartości któregoś z pól, poniżej formularza ma się obliczyć całkowity koszt wesela,
+liczony w taki sposób, że liczbę gości mnożymy przez koszt pojedynczej osoby: 100zł, natomiast jeśli zaznaczone jest
+pole checkbox, co oznacza, że wyprawiane będą poprawiny, koszt wesela zwiększamy o 30%. Wynik obliczeń wypisywać się ma
+poniżej formularza. -->
+
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../main.css" />
+    <title>Zad1</title>
+  </head>
+  <body>
+    <a class="home" href="./index.html">Powrót</a>
+
+    <form class="form" id="form">
+      <label for="box">Ilość gości: </label>
+      <input type="number" id="box" required />
+      <br /><br />
+      <label for="checkbox">Poprawiny? </label>
+      <input type="checkbox" id="checkbox" />
+      <br /><br />
+
+      <input type="button" value="Oblicz" id="count" />
+      <input type="reset" value="Wyczyść" id="reset" />
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+      const checkBox = document.querySelector('#checkbox');
+      const funcBtn = document.querySelector('#count');
+      const resetBtn = document.querySelector('#reset');
+      const result = document.querySelector('#result');
+
+      funcBtn.addEventListener('click', () => {
+        const guests = parseFloat(document.querySelector('#box').value);
+
+        if (errorChecker(guests)) {
+          let total = guests * 100;
+
+          if (checkBox.checked) {
+            total *= 1.3;
+          }
+
+          result.innerHTML = `<br />Koszt wesela wyniesie: ${total.toFixed(2)}zł`;
+        }
+      });
+
+      function errorChecker(a) {
+        let state = true;
+
+        if (Number.isNaN(a)) {
+          result.innerHTML = `<br />Proszę wprowadzić liczbę!`;
+          state = false;
+        } else if (!Number.isInteger(a)) {
+          result.innerHTML = `<br />Proszę podać całkowitą liczbę gości!`;
+          state = false;
+        } else if (a <= 0) {
+          result.innerHTML = `<br />Proszę podać liczbę gości większą od 0!`;
+          state = false;
+        }
+
+        return state;
+      }
+
+      resetBtn.addEventListener('click', () => {
+        result.innerHTML = '';
+      });
+    </script>
+  </body>
+</html>

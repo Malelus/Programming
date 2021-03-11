@@ -1,0 +1,111 @@
+<!-- Polecenie: 
+Napisz formularz, za pomocą którego obliczysz koszt wejściówek do aquaparku. Formularz ma zawierać trzy pola tekstowe:
+ilość biletów normalnych, ilość biletów ulgowych, ilość godzin, pole checkbox karta dużej rodziny, przycisk Oblicz. Do
+przeprowadzenia obliczeń przyjmij następujące założenia:
+– bilet normalny 10zł / godzina
+– bilet ulgowy 5zł / godzina
+– powyżej 4 godzin = bilet całodzienny: normalny 50zł, ulgowy 25zł
+– karta dużej rodziny rabat 10%
+– na każde 15 biletów ulgowych jeden bilet normalny gratis
+Wynik obliczeń ma się wypisać poniżej formularza, po kliknięciu przycisku. Treść informacji wynikowej powinna brzmieć:
+“Całkowity koszt wstępu do aquaparku: …zł”. -->
+
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../main.css" />
+    <title>Zad8</title>
+  </head>
+  <body>
+    <a class="home" href="./index.html">Powrót</a>
+
+    <form class="form" id="form">
+      <label for="box1">Ilość biletów normalnych: </label>
+      <input type="number" id="box1" required />
+      <br /><br />
+      <label for="box2">Ilość biletów ulgowych: </label>
+      <input type="number" id="box2" required />
+      <br /><br />
+      <label for="box3">Ilość godzin: </label>
+      <input type="number" id="box3" required />
+      <br /><br />
+      <label for="checkbox">Karta dużej rodziny </label>
+      <input type="checkbox" id="checkbox" />
+      <br /><br />
+
+      <input type="button" value="Oblicz" id="count" />
+      <input type="reset" value="Wyczyść" id="reset" />
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+      const checkBox = document.querySelector('#checkbox');
+      const funcBtn = document.querySelector('#count');
+      const resetBtn = document.querySelector('#reset');
+      const result = document.querySelector('#result');
+
+      funcBtn.addEventListener('click', () => {
+        const regTicketsAmount = parseFloat(document.querySelector('#box1').value);
+        const disTicketsAmount = parseFloat(document.querySelector('#box2').value);
+        const time = parseFloat(document.querySelector('#box3').value);
+
+        let regTicketPrice = 10;
+        let disTicketPrice = 5;
+
+        if (errorChecker(regTicketsAmount, disTicketsAmount, time)) {
+          if (time > 4) {
+            regTicketPrice = 50;
+            disTicketPrice = 25;
+          }
+
+          let regTicketsTotal = regTicketPrice * regTicketsAmount;
+          let disTicketsTotal = disTicketPrice * disTicketsAmount;
+
+          let total = regTicketsTotal + disTicketsTotal;
+
+          let group = Math.floor(disTicketsAmount / 15);
+          let groupDiscount;
+
+          group == 0
+            ? (groupDiscount = 0)
+            : group < regTicketsAmount
+            ? (groupDiscount = regTicketPrice * group)
+            : (groupDiscount = regTicketPrice * regTicketsAmount);
+
+          total -= groupDiscount;
+
+          if (checkBox.checked) {
+            total *= 0.9;
+          }
+
+          result.innerHTML = `<br />Całkowity koszt wstępu do aquaparku: ${total.toFixed(2)}zł`;
+        }
+      });
+
+      function errorChecker(a, b, c) {
+        let state = true;
+
+        if (Number.isNaN(a) || Number.isNaN(b) || Number.isNaN(c)) {
+          result.innerHTML = `<br />Proszę wprowadzić liczby!`;
+          state = false;
+        } else if (!Number.isInteger(a) || !Number.isInteger(b) || !Number.isInteger(c)) {
+          result.innerHTML = `<br />Proszę podać całkowitą liczbę biletów!`;
+          state = false;
+        } else if (a < 0 || b < 0 || c <= 0) {
+          result.innerHTML = `<br />Proszę podać liczbę godzin większą od 0! / Liczba biletów nie może być na minusie!`;
+          state = false;
+        }
+
+        return state;
+      }
+
+      resetBtn.addEventListener('click', () => {
+        result.innerHTML = '';
+      });
+    </script>
+  </body>
+</html>

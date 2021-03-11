@@ -1,0 +1,90 @@
+<!-- Polecenie: 
+Napisz formularz składający się z 5 pól tekstowych położonych jedno pod drugim. Obok każdego pola tekstowego znajdować
+się ma pole checkbox. Użytkownik wprowadza w pola tekstowe liczby całkowite (dopilnuj tego). Pod formularzem wyświetlać
+się ma suma liczb z pól tekstowych, ale tylko tych pól, koło których zaznaczony jest checkbox. -->
+
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../main.css" />
+    <title>Zad4</title>
+  </head>
+  <body>
+    <a class="home" href="./index.html">Powrót</a>
+
+    <form class="form" id="form">
+      <label for="box1">Podaj 1 liczbę: </label>
+      <input type="number" id="box1" required />
+      <input type="checkbox" id="checkBox1" />
+      <br /><br />
+      <label for="box2">Podaj 2 liczbę: </label>
+      <input type="number" id="box2" required />
+      <input type="checkbox" id="checkBox2" />
+      <br /><br />
+      <label for="box3">Podaj 3 liczbę: </label>
+      <input type="number" id="box3" required />
+      <input type="checkbox" id="checkBox3" />
+      <br /><br />
+      <label for="box4">Podaj 4 liczbę: </label>
+      <input type="number" id="box4" required />
+      <input type="checkbox" id="checkBox4" />
+      <br /><br />
+      <label for="box5">Podaj 5 liczbę: </label>
+      <input type="number" id="box5" required />
+      <input type="checkbox" id="checkBox5" />
+      <br /><br />
+
+      <input type="button" value="Oblicz" id="count" />
+      <input type="reset" value="Wyczyść" id="reset" />
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+      const funcBtn = document.querySelector('#count');
+      const resetBtn = document.querySelector('#reset');
+      const result = document.querySelector('#result');
+
+      funcBtn.addEventListener('click', () => {
+        let boxes = [];
+        let total = 0;
+        let mistake = false;
+        let amount = 0;
+
+        for (let i = 1; i <= 5; i++) {
+          let currentCheckbox = `#checkBox${i}`;
+          let currentBox = `#box${i}`;
+
+          if (document.querySelector(currentCheckbox).checked) {
+            boxes[i] = parseFloat(document.querySelector(currentBox).value);
+
+            if (Number.isNaN(boxes[i])) {
+              mistake = true;
+            } else {
+              total += boxes[i];
+            }
+          } else {
+            amount++;
+          }
+        }
+
+        const noInput = `<br />Proszę wprowadzić liczby`;
+        const inavlid = `<br />Proszę wprowadzić poprawne liczby!`;
+        const correct = `<br /> Wynik wyrażenia wynosi: ${total}`;
+
+        amount == 5
+          ? (result.innerHTML = noInput)
+          : mistake
+          ? (result.innerHTML = inavlid)
+          : (result.innerHTML = correct);
+      });
+
+      resetBtn.addEventListener('click', () => {
+        result.innerHTML = '';
+      });
+    </script>
+  </body>
+</html>

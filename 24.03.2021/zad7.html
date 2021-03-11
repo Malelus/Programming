@@ -1,0 +1,92 @@
+<!-- Polecenie: 
+Do poprzedniego zadania dodaj obliczenie kosztu transportu. Dodaj pole tekstowe ilość km. Dla obliczeń kosztu transportu
+przyjmij, że każdy 1km będzie kosztował 50gr za każde rozpoczęte 10kg. Informację o koszcie transportu dopisz do
+dotychczasowej informacji wynikowej. -->
+
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../main.css" />
+    <title>Zad7</title>
+  </head>
+  <body>
+    <a class="home" href="./index.html">Powrót</a>
+
+    <form class="form" id="form">
+      <label for="box1">Ilość cegieł: </label>
+      <input type="number" id="box1" required />
+      <br /><br />
+      <label for="checkbox">Cegła premium </label>
+      <input type="checkbox" id="checkbox" />
+      <br /><br />
+      <label for="box2">Odległość transportu: </label>
+      <input type="number" id="box2" required />
+      <br /><br />
+
+      <input type="button" value="Oblicz" id="count" />
+      <input type="reset" value="Wyczyść" id="reset" />
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+      const checkBox = document.querySelector('#checkbox');
+      const funcBtn = document.querySelector('#count');
+      const resetBtn = document.querySelector('#reset');
+      const result = document.querySelector('#result');
+
+      funcBtn.addEventListener('click', () => {
+        const bricksTotal = parseFloat(document.querySelector('#box1').value);
+        const distanceTotal = parseFloat(document.querySelector('#box2').value);
+        const brickPrice = 2;
+        const deliveryPrice = 0.5;
+
+        if (errorChecker(bricksTotal, distanceTotal)) {
+          let brickWeight = 1.5;
+          let type = `standardowa`;
+
+          let total = brickPrice * bricksTotal;
+
+          if (checkBox.checked) {
+            total *= 1.2;
+            brickWeight = 1.75;
+            type = `premium`;
+          }
+
+          let weight = brickWeight * bricksTotal;
+
+          let deliveryTotal = deliveryPrice * distanceTotal;
+          let delivery = deliveryTotal * Math.ceil(weight / 10);
+
+          result.innerHTML = `<br />Zakupiona ilość cegieł: ${bricksTotal}, 
+          cegła ${type}, koszt zakupu cegieł: ${total.toFixed(2)}zł, 
+          waga cegieł: ${weight.toFixed(2)}kg, koszt transportu cegieł: ${delivery}zł`;
+        }
+      });
+
+      function errorChecker(a, b) {
+        let state = true;
+
+        if (Number.isNaN(a) || Number.isNaN(b)) {
+          result.innerHTML = `<br />Proszę wprowadzić liczby!`;
+          state = false;
+        } else if (!Number.isInteger(a)) {
+          result.innerHTML = `<br />Proszę podać całkowitą liczbę cegieł!`;
+          state = false;
+        } else if (a <= 0 || b < 0) {
+          result.innerHTML = `<br />Proszę podać liczbę cegieł większą od 0! / Odległość nie może być na minusie!`;
+          state = false;
+        }
+
+        return state;
+      }
+
+      resetBtn.addEventListener('click', () => {
+        result.innerHTML = '';
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+body {
+  font-family: sans-serif;
+  background: #fcfcfc;
+  color: #303030;
+}
+
+ul {
+  list-style: square;
+}
+
+li + li {
+  margin-top: 0.35em;
+}
+
+a {
+  color: #303030;
+}
+
+.home {
+  display: inline-block;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 1.45rem;
+}
