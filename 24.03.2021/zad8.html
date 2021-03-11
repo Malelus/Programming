@@ -91,13 +91,15 @@ Wynik obliczeń ma się wypisać poniżej formularza, po kliknięciu przycisku. 
         let state = true;
 
         if (Number.isNaN(a) || Number.isNaN(b) || Number.isNaN(c)) {
-          result.innerHTML = `<br />Proszę wprowadzić liczby!`;
+          result.innerHTML = `<br />Proszę wprowadzić liczby!`.fontcolor('red');
           state = false;
         } else if (!Number.isInteger(a) || !Number.isInteger(b) || !Number.isInteger(c)) {
-          result.innerHTML = `<br />Proszę podać całkowitą liczbę biletów!`;
+          result.innerHTML = `<br />Proszę podać całkowitą liczbę biletów!`.fontcolor('red');
           state = false;
         } else if (a < 0 || b < 0 || c <= 0) {
-          result.innerHTML = `<br />Proszę podać liczbę godzin większą od 0! / Liczba biletów nie może być na minusie!`;
+          result.innerHTML = `<br />Proszę podać liczbę godzin większą od 0! / Liczba biletów nie może być na minusie!`.fontcolor(
+            'red'
+          );
           state = false;
         }
 

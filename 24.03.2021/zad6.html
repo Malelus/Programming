@@ -65,13 +65,13 @@ premium, koszt zakupu cegieł: …, waga cegieł: …” -->
         let state = true;
 
         if (Number.isNaN(a)) {
-          result.innerHTML = `<br />Proszę wprowadzić liczbę!`;
+          result.innerHTML = `<br />Proszę wprowadzić liczbę!`.fontcolor('red');
           state = false;
         } else if (!Number.isInteger(a)) {
-          result.innerHTML = `<br />Proszę podać całkowitą liczbę cegieł!`;
+          result.innerHTML = `<br />Proszę podać całkowitą liczbę cegieł!`.fontcolor('red');
           state = false;
         } else if (a <= 0) {
-          result.innerHTML = `<br />Proszę podać liczbę cegieł większą od 0!`;
+          result.innerHTML = `<br />Proszę podać liczbę cegieł większą od 0!`.fontcolor('red');
           state = false;
         }
 

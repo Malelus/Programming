@@ -58,13 +58,13 @@ poniżej formularza. -->
         let state = true;
 
         if (Number.isNaN(a)) {
-          result.innerHTML = `<br />Proszę wprowadzić liczbę!`;
+          result.innerHTML = `<br />Proszę wprowadzić liczbę!`.fontcolor('red');
           state = false;
         } else if (!Number.isInteger(a)) {
-          result.innerHTML = `<br />Proszę podać całkowitą liczbę gości!`;
+          result.innerHTML = `<br />Proszę podać całkowitą liczbę gości!`.fontcolor('red');
           state = false;
         } else if (a <= 0) {
-          result.innerHTML = `<br />Proszę podać liczbę gości większą od 0!`;
+          result.innerHTML = `<br />Proszę podać liczbę gości większą od 0!`.fontcolor('red');
           state = false;
         }
 

@@ -60,13 +60,13 @@ Dla stałych klientów naliczany jest rabat 20%. -->
         let state = true;
 
         if (Number.isNaN(a)) {
-          result.innerHTML = `<br />Proszę wprowadzić liczbę!<br /><br />`;
+          result.innerHTML = `<br />Proszę wprowadzić liczbę!<br /><br />`.fontcolor('red');
           state = false;
         } else if (!Number.isInteger(a)) {
-          result.innerHTML = `<br />Proszę podać całkowitą liczbę ogłoszeń!<br /><br />`;
+          result.innerHTML = `<br />Proszę podać całkowitą liczbę ogłoszeń!<br /><br />`.fontcolor('red');
           state = false;
         } else if (a <= 0) {
-          result.innerHTML = `<br />Proszę podać liczbę ogłoszeń większą od 0!<br /><br />`;
+          result.innerHTML = `<br />Proszę podać liczbę ogłoszeń większą od 0!<br /><br />`.fontcolor('red');
           state = false;
         }
 

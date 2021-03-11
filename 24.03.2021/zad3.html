@@ -75,10 +75,10 @@ poinformuje użytkownika o takiej konieczności. -->
         let state = true;
 
         if (Number.isNaN(a) || Number.isNaN(b)) {
-          result.innerHTML = `<br />Proszę wprowadzić liczby!`;
+          result.innerHTML = `<br />Proszę wprowadzić liczby!`.fontcolor('red');
           state = false;
         } else if (b == 0) {
-          result.innerHTML = `<br />Druga liczba musi być różna od 0!`;
+          result.innerHTML = `<br />Druga liczba musi być różna od 0!`.fontcolor('red');
           state = false;
         }
 

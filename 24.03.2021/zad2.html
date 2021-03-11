@@ -58,10 +58,10 @@ miejscu … wprowadzisz obliczoną przez Ciebie cenę dowozu. -->
         let state = true;
 
         if (Number.isNaN(a)) {
-          result.innerHTML = `<br />Proszę wprowadzić liczbę!`;
+          result.innerHTML = `<br />Proszę wprowadzić liczbę!`.fontcolor('red');
           state = false;
         } else if (a < 0) {
-          result.innerHTML = `<br />Odległość nie może być na minusie!`;
+          result.innerHTML = `<br />Odległość nie może być na minusie!`.fontcolor('red');
           state = false;
         }
 

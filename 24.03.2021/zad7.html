@@ -72,13 +72,15 @@ dotychczasowej informacji wynikowej. -->
         let state = true;
 
         if (Number.isNaN(a) || Number.isNaN(b)) {
-          result.innerHTML = `<br />Proszę wprowadzić liczby!`;
+          result.innerHTML = `<br />Proszę wprowadzić liczby!`.fontcolor('red');
           state = false;
         } else if (!Number.isInteger(a)) {
-          result.innerHTML = `<br />Proszę podać całkowitą liczbę cegieł!`;
+          result.innerHTML = `<br />Proszę podać całkowitą liczbę cegieł!`.fontcolor('red');
           state = false;
         } else if (a <= 0 || b < 0) {
-          result.innerHTML = `<br />Proszę podać liczbę cegieł większą od 0! / Odległość nie może być na minusie!`;
+          result.innerHTML = `<br />Proszę podać liczbę cegieł większą od 0! / Odległość nie może być na minusie!`.fontcolor(
+            'red'
+          );
           state = false;
         }
 
